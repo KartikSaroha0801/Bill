@@ -23,7 +23,8 @@ billForm.addEventListener('submit', (e) => {
   }
 
   const securityCharges = rent;
-  const societyWelcomeCharge = societyCharge + (refundableCheck ? refundableAmount : 0);
+  const societyWelcomeCharge = societyCharge;
+  const BrokerageCharge = rent / 2;
   const totalCharges = rent + rentalAgreementCost + securityCharges + societyWelcomeCharge + (maintenanceCheck && !isNaN(maintenanceCharges) ? maintenanceCharges : 0);
 
   roughBillDiv.innerHTML = `
@@ -35,7 +36,7 @@ billForm.addEventListener('submit', (e) => {
     <p>Rent (1 M): Rs. ${rent}</p>
     ${maintenanceCheck && !isNaN(maintenanceCharges) ? `<p>Maintenance Charges: Rs. ${maintenanceCharges}</p>` : ''}
     <p>Rental Agreement Cost: Rs. ${rentalAgreementCost}</p>
-    <p>Brokerage: Rs. ${rent / 2}</p>
+    <p>Brokerage: Rs. ${BrokerageCharge}</p>
     <p><strong>Total Rough Bill: Rs. ${totalCharges}</strong></p>
     <p>${vivekContact}</p>
   `;
