@@ -13,29 +13,24 @@ billForm.addEventListener('submit', (e) => {
   const refundableAmount = parseFloat(document.getElementById('refundableAmount').value);
   const maintenanceCheck = document.getElementById('maintenanceCheck').checked;
   const maintenanceCharges = parseFloat(document.getElementById('maintenanceCharges').value);
+  const rentalAgreementCost = parseFloat(document.getElementById('rentalAgreementCost').value); // Get Rental Agreement Cost
 
-  if (isNaN(rent) || isNaN(societyCharge)) {
-    alert('Please enter valid numeric values for Rent and Society Charge.');
+  if (isNaN(rent) || isNaN(societyCharge) || isNaN(rentalAgreementCost)) { // Check for NaN values
+    alert('Please enter valid numeric values for Rent, Society Charge, and Rental Agreement Cost.');
     return;
   }
 
-  let totalCharges = rent + societyCharge;
-
-  if (refundableCheck) {
-    totalCharges += refundableAmount;
-  }
-
-  if (maintenanceCheck && !isNaN(maintenanceCharges)) {
-    totalCharges += maintenanceCharges;
-  }
+  const societyWelcomeCharge = societyCharge + (refundableCheck ? refundableAmount : 0);
+  const totalCharges = rent + rentalAgreementCost + societyWelcomeCharge + (maintenanceCheck && !isNaN(maintenanceCharges) ? maintenanceCharges : 0);
 
   roughBillDiv.innerHTML = `
     <h3>Rough Bill</h3>
     <p>${ownerName}</p>
     <p>${ownerContact}</p>
     <p>Society one time Welcome Charge: Rs. ${societyCharge} ${refundableCheck ? `out of which Rs. ${refundableAmount} is refundable.` : ''}</p>
-    <p>Rent (1 M): Rs. ${rent}</p>
+    <p>Advance Rent (1 M): Rs. ${rent}</p>
     ${maintenanceCheck && !isNaN(maintenanceCharges) ? `<p>Maintenance Charges: Rs. ${maintenanceCharges}</p>` : ''}
+    <p>Rental Agreement Cost: Rs. ${rentalAgreementCost}</p>
     <p>Brokerage: Rs. ${rent / 2}</p>
     <p><strong>Total Rough Bill: Rs. ${totalCharges}</strong></p>
     <p>${vivekContact}</p>
@@ -50,6 +45,7 @@ billForm.addEventListener('submit', (e) => {
 
   roughBillDiv.appendChild(downloadLink);
 });
+
 
 document.getElementById('refundableCheck').addEventListener('change', function () {
   const refundableAmountInput = document.getElementById('refundableAmount');
