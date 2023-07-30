@@ -1,6 +1,8 @@
 const billForm = document.getElementById('billForm');
 const roughBillDiv = document.getElementById('roughBill');
 
+// ... (previous code)
+
 billForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -20,13 +22,15 @@ billForm.addEventListener('submit', (e) => {
     return;
   }
 
+  const securityCharges = rent;
   const societyWelcomeCharge = societyCharge + (refundableCheck ? refundableAmount : 0);
-  const totalCharges = rent + rentalAgreementCost + societyWelcomeCharge + (maintenanceCheck && !isNaN(maintenanceCharges) ? maintenanceCharges : 0);
+  const totalCharges = rent + rentalAgreementCost + securityCharges + societyWelcomeCharge + (maintenanceCheck && !isNaN(maintenanceCharges) ? maintenanceCharges : 0);
 
   roughBillDiv.innerHTML = `
     <h3>Rough Bill</h3>
     <p>${ownerName}</p>
     <p>${ownerContact}</p>
+    <p>Security Charges (1 M): Rs. ${securityCharges} (refundable after a minimum of 6 months stay in the flat)</p>
     <p>Society one time Welcome Charge: Rs. ${societyCharge} ${refundableCheck ? `out of which Rs. ${refundableAmount} is refundable.` : ''}</p>
     <p>Advance Rent (1 M): Rs. ${rent}</p>
     ${maintenanceCheck && !isNaN(maintenanceCharges) ? `<p>Maintenance Charges: Rs. ${maintenanceCharges}</p>` : ''}
@@ -45,6 +49,9 @@ billForm.addEventListener('submit', (e) => {
 
   roughBillDiv.appendChild(downloadLink);
 });
+
+// ... (remaining code)
+
 
 
 document.getElementById('refundableCheck').addEventListener('change', function () {
