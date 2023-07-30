@@ -20,22 +20,25 @@ billForm.addEventListener('submit', (e) => {
   const refundableDeposit = 5000;
   const brokerage = rent / 2;
 
-  const totalTaxes = 0; // Assuming there are no taxes for simplicity
-  const totalCharges = rent + maintenanceCharges + securityCharges + societyDeposit + brokerage;
+  const rentalAgreementCost = 1000; // Fixed Rental Agreement Cost
 
+  const totalTaxes = 0; // Assuming there are no taxes for simplicity
+  const totalCharges = rent + maintenanceCharges + securityCharges + societyDeposit + brokerage + rentalAgreementCost;
+  
 
   roughBillDiv.innerHTML = `
-    <h3>Rough Bill</h3>
-    <p>${ownerName}</p>
-    <p>${ownerContact}</p>
-    <p>Security Charges (1 M): Rs. ${securityCharges} (refundable after a minimum of 6 months stay in the flat) </p>
-    <p>Advance Rent (1 M): Rs. ${rent}</p>
-    <p>Society Deposit: Rs. ${societyDeposit} out of which Rs. 5000 is refundable</p>
-    <p>Maintenance Charges: Rs. ${maintenanceCharges}</p>
-    <p>Brokerage: Rs. ${brokerage}</p>
-    <p><strong>Total Rough Bill: Rs. ${totalCharges}</strong></p>
-    <p>${vivekContact}</p>
-  `;
+  <h3>Rough Bill</h3>
+  <p>${ownerName}</p>
+  <p>${ownerContact}</p>
+  <p>Security Charges (1 M): Rs. ${securityCharges} (refundable after a minimum of 6 months stay in the flat) </p>
+  <p>Advance Rent (1 M): Rs. ${rent}</p>
+  <p>Society Deposit: Rs. ${societyDeposit} out of which Rs. 5000 is refundable</p>
+  <p>Maintenance Charges: Rs. ${maintenanceCharges}</p>
+  <p>Brokerage: Rs. ${brokerage}</p>
+  <p>Rental Agreement: Rs. ${rentalAgreementCost}</p> 
+  <p><strong>Total Rough Bill: Rs. ${totalCharges}</strong></p>
+  <p>${vivekContact}</p>
+`;
 
   const downloadLink = document.createElement('a');
   downloadLink.innerText = "Download Bill (Image)";
