@@ -2,43 +2,44 @@ const billForm = document.getElementById('billForm');
 const roughBillDiv = document.getElementById('roughBill');
 
 billForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-  
-    const ownerName = "Super Home Associates";
-    const ownerContact = "Mr. Nikhil Mehta\n+91 8587808686";
-    const vivekContact = "Mr. Vivek\n+91 8449881720";
+  e.preventDefault();
+
+  const ownerName = "Super Home Associates";
+  const ownerContact = "Mr. Nikhil Mehta\n+91 8587808686";
+  const vivekContact = "Mr. Vivek\n+91 8449881720";
   const rent = parseFloat(document.getElementById('rent').value);
+  const societyCharge = parseFloat(document.getElementById('societyCharge').value);
+  const refundableCheck = document.getElementById('refundableCheck').checked;
+  const refundableAmount = parseFloat(document.getElementById('refundableAmount').value);
+  const maintenanceCheck = document.getElementById('maintenanceCheck').checked;
   const maintenanceCharges = parseFloat(document.getElementById('maintenanceCharges').value);
 
-  if (isNaN(rent) || isNaN(maintenanceCharges)) {
-    alert('Please enter valid numeric values for Rent and Maintenance Charges.');
+  if (isNaN(rent) || isNaN(societyCharge)) {
+    alert('Please enter valid numeric values for Rent and Society Charge.');
     return;
   }
 
-  const securityCharges = rent;
-  const societyDeposit = 6000;
-  const refundableDeposit = 5000;
-  const brokerage = rent / 2;
+  let totalCharges = rent + societyCharge;
 
-  const rentalAgreementCost = 1000; // Fixed Rental Agreement Cost
+  if (refundableCheck) {
+    totalCharges += refundableAmount;
+  }
 
-  const totalTaxes = 0; // Assuming there are no taxes for simplicity
-  const totalCharges = rent + maintenanceCharges + securityCharges + societyDeposit + brokerage + rentalAgreementCost;
-  
+  if (maintenanceCheck && !isNaN(maintenanceCharges)) {
+    totalCharges += maintenanceCharges;
+  }
 
   roughBillDiv.innerHTML = `
-  <h3>Rough Bill</h3>
-  <p>${ownerName}</p>
-  <p>${ownerContact}</p>
-  <p>Security Charges (1 M): Rs. ${securityCharges} (refundable after a minimum of 6 months stay in the flat) </p>
-  <p>Advance Rent (1 M): Rs. ${rent}</p>
-  <p>Society Deposit: Rs. ${societyDeposit} out of which Rs. 5000 is refundable</p>
-  <p>Maintenance Charges: Rs. ${maintenanceCharges}</p>
-  <p>Brokerage: Rs. ${brokerage}</p>
-  <p>Rental Agreement: Rs. ${rentalAgreementCost}</p> 
-  <p><strong>Total Rough Bill: Rs. ${totalCharges}</strong></p>
-  <p>${vivekContact}</p>
-`;
+    <h3>Rough Bill</h3>
+    <p>${ownerName}</p>
+    <p>${ownerContact}</p>
+    <p>Society one time Welcome Charge: Rs. ${societyCharge} ${refundableCheck ? `out of which Rs. ${refundableAmount} is refundable.` : ''}</p>
+    <p>Rent (1 M): Rs. ${rent}</p>
+    ${maintenanceCheck && !isNaN(maintenanceCharges) ? `<p>Maintenance Charges: Rs. ${maintenanceCharges}</p>` : ''}
+    <p>Brokerage: Rs. ${rent / 2}</p>
+    <p><strong>Total Rough Bill: Rs. ${totalCharges}</strong></p>
+    <p>${vivekContact}</p>
+  `;
 
   const downloadLink = document.createElement('a');
   downloadLink.innerText = "Download Bill (Image)";
@@ -50,8 +51,16 @@ billForm.addEventListener('submit', (e) => {
   roughBillDiv.appendChild(downloadLink);
 });
 
+document.getElementById('refundableCheck').addEventListener('change', function () {
+  const refundableAmountInput = document.getElementById('refundableAmount');
+  refundableAmountInput.disabled = !this.checked;
+});
 
-// ... (remaining code) ...
+document.getElementById('maintenanceCheck').addEventListener('change', function () {
+  const maintenanceChargesInput = document.getElementById('maintenanceCharges');
+  maintenanceChargesInput.disabled = !this.checked;
+});
+
 function downloadBillAsImage() {
   const billContainer = document.getElementById('roughBill');
 
