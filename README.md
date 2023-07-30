@@ -1,6 +1,6 @@
 ## Getting Started
-Hello Everyone! 
-To use the Rough Bill Generator, follow these steps:
+Hello Everyone! I am Kartik, 
+I created this project, To use the Rough Bill Generator, follow these steps:
 
 1. Open the website: [https://your-username.github.io/property-dealing-bill-generator/](https://your-username.github.io/property-dealing-bill-generator/)
 
