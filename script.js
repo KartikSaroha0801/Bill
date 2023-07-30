@@ -32,7 +32,7 @@ billForm.addEventListener('submit', (e) => {
     <p>${ownerContact}</p>
     <p>Security Charges (1 M): Rs. ${securityCharges} (refundable after a minimum of 6 months stay in the flat)</p>
     <p>Society one time Welcome Charge: Rs. ${societyCharge} ${refundableCheck ? `out of which Rs. ${refundableAmount} is refundable.` : ''}</p>
-    <p>Advance Rent (1 M): Rs. ${rent}</p>
+    <p>Rent (1 M): Rs. ${rent}</p>
     ${maintenanceCheck && !isNaN(maintenanceCharges) ? `<p>Maintenance Charges: Rs. ${maintenanceCharges}</p>` : ''}
     <p>Rental Agreement Cost: Rs. ${rentalAgreementCost}</p>
     <p>Brokerage: Rs. ${rent / 2}</p>
