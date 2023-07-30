@@ -25,7 +25,7 @@ billForm.addEventListener('submit', (e) => {
   const securityCharges = rent;
   const societyWelcomeCharge = societyCharge;
   const BrokerageCharge = rent / 2;
-  const totalCharges = rent + rentalAgreementCost + securityCharges + societyWelcomeCharge + (maintenanceCheck && !isNaN(maintenanceCharges) ? maintenanceCharges : 0);
+  const totalCharges = rent + rentalAgreementCost + securityCharges + societyWelcomeCharge + BrokerageCharge + (maintenanceCheck && !isNaN(maintenanceCharges) ? maintenanceCharges : 0);
 
   roughBillDiv.innerHTML = `
     <h3>Rough Bill</h3>
